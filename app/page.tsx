@@ -138,16 +138,10 @@ const ShirtDesign = () => {
       </div>
 
       <div ref={divRef} className="relative">
-        <Image
+        <img
           src="/images/shirt2.png"
           alt="T-Shirt"
           className="w-full h-auto"
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-          width={1000}
-          height={1000}
         />
         {userImage && (
           <Draggable onStop={handleDragStop} position={position}>
