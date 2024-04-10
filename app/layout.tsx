@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-slate-900 text-slate-200 ${vazirFont.className}`}>
+      <body className={`w-full h-screen bg-slate-900 text-slate-200 ${vazirFont.className}`}>
         <main className='px-8 py-6'>
           {children}
         </main>
