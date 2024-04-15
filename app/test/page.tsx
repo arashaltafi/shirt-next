@@ -141,21 +141,28 @@ const ShirtDesign = () => {
         <img
           src="/images/shirt2.png"
           alt="T-Shirt"
-          className="w-full h-auto"
+          className="w-full h-auto object-cover"
         />
         {userImage && (
           <Draggable onStop={handleDragStop} position={position}>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-              <Image
+            <div className="absolute w-full h-full top-0 left-0 -translate-x-1/2 -translate-y-1/2"
+              style={{
+                clipPath: `url(${userImage})`,
+                WebkitMaskImage: `url(/images/shirt2.png)`,
+                maskImage: `url(/images/shirt2.png)`,
+                maskRepeat: "no-repeat",
+                maskSize: 'contain', //cover
+                WebkitMaskComposite: "intersect",
+                maskComposite: "intersect",
+              }}
+            >
+              <img
                 src={userImage}
                 alt="User Image"
-                width={width}
-                height={height}
+                className="w-full h-full object-cover"
                 style={{
                   transform: `rotate(${rotation}deg)`,
                   opacity: opacity,
-                  width: width,
-                  height: height,
                 }}
               />
             </div>

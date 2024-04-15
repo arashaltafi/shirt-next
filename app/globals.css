@@ -45,4 +45,10 @@
     input[type="number"] {
         -moz-appearance: textfield;
     }
+
+    .mask-image {
+        mask-image: url('/images/shirt2.png');
+        mask-repeat: no-repeat;
+        mask-size: cover;
+      }
 }
