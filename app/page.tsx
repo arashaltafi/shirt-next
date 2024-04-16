@@ -11,7 +11,9 @@ const ShirtDesign = () => {
   const [height, setHeight] = useState<number>(100);
   const [rotation, setRotation] = useState<number>(0);
   const [opacity, setOpacity] = useState<number>(0.5);
-  const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [position1, setPosition1] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [position2, setPosition2] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [position3, setPosition3] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const divRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -42,8 +44,16 @@ const ShirtDesign = () => {
     setRotation(Number(event.target.value));
   };
 
-  const handleDragStop = (event: any, data: any) => {
-    setPosition({ x: data.x, y: data.y });
+  const handleDragStop1 = (event: any, data: any) => {
+    setPosition1({ x: data.x, y: data.y });
+  };
+
+  const handleDragStop2 = (event: any, data: any) => {
+    setPosition2({ x: data.x, y: data.y });
+  };
+
+  const handleDragStop3 = (event: any, data: any) => {
+    setPosition3({ x: data.x, y: data.y });
   };
 
   const handleClickSetImage = () => {
@@ -71,7 +81,7 @@ const ShirtDesign = () => {
   };
 
   return (
-    <div className="w-full flex flex-col md:flex-row gap-8 justify-center items-center">
+    <div className="w-full flex flex-col gap-8 justify-center items-center">
       <div className="flex flex-col gap-4">
         <button
           onClick={handleClickSetImage}
@@ -137,6 +147,10 @@ const ShirtDesign = () => {
         </button>
       </div>
 
+
+      <span className='w-full h-px mt-8 bg-white rounded-full' />
+
+
       <div ref={divRef} className="relative">
         <img
           src="/images/shirt2.png"
@@ -144,7 +158,7 @@ const ShirtDesign = () => {
           className="w-full h-auto"
         />
         {userImage && (
-          <Draggable onStop={handleDragStop} position={position}>
+          <Draggable onStop={handleDragStop1} position={position1}>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <Image
                 src={userImage}
@@ -170,6 +184,82 @@ const ShirtDesign = () => {
         onChange={handleUserImageChange}
         style={{ display: "none" }}
       />
+
+
+      <span className='w-full h-px bg-white rounded-full' />
+
+
+      <div className="relative w-full mx-auto flex">
+        <div className="w-full h-full" style={{
+          WebkitMaskImage: `url(/images/shirt2.png)`,
+          maskImage: `url(/images/shirt2.png)`,
+          maskRepeat: "no-repeat",
+          maskSize: 'contain',
+          background: 'url(/images/shirt2.png) no-repeat',
+          backgroundSize: 'contain',
+        }}>
+          <Draggable
+            position={position2}
+            onStop={handleDragStop2}
+          >
+            <img
+              src={`${userImage}`}
+              alt='a'
+              className='w-full h-auto'
+              style={{
+                transform: `translate(${position2.x}px, ${position2.y}px)`,
+                opacity: opacity,
+              }}
+            />
+          </Draggable>
+        </div>
+      </div>
+
+
+      <span className='w-full h-px bg-white rounded-full' />
+
+
+      <div className="w-full flex flex-col md:flex-row gap-8 justify-center items-center">
+        <div ref={divRef} className="relative">
+          <img
+            src="/images/shirt2.png"
+            alt="T-Shirt"
+            className="w-full h-auto object-cover"
+          />
+          {userImage && (
+            <Draggable onStop={handleDragStop3} position={position3}>
+              <div className="absolute w-full h-full top-0 left-0 -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  clipPath: `url(${userImage})`,
+                  WebkitMaskImage: `url(/images/shirt2.png)`,
+                  maskImage: `url(/images/shirt2.png)`,
+                  maskRepeat: "no-repeat",
+                  maskSize: 'contain', //cover
+                  WebkitMaskComposite: "intersect",
+                  maskComposite: "intersect",
+                }}
+              >
+                <img
+                  src={userImage}
+                  alt="User Image"
+                  className="w-full h-full object-cover"
+                  style={{
+                    opacity: opacity,
+                  }}
+                />
+              </div>
+            </Draggable>
+          )}
+        </div>
+
+        <input
+          type="file"
+          ref={fileInputRef}
+          accept=".png,.jpg,.jpeg"
+          onChange={handleUserImageChange}
+          style={{ display: "none" }}
+        />
+      </div>
     </div>
   )
 };

@@ -3,13 +3,9 @@
 import React, { useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import html2canvas from 'html2canvas';
-import Image from 'next/image';
 
 const ShirtDesign = () => {
   const [userImage, setUserImage] = useState<string | null>(null);
-  const [width, setWidth] = useState<number>(100);
-  const [height, setHeight] = useState<number>(100);
-  const [rotation, setRotation] = useState<number>(0);
   const [opacity, setOpacity] = useState<number>(0.5);
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const divRef = useRef<HTMLDivElement>(null);
@@ -26,23 +22,11 @@ const ShirtDesign = () => {
     }
   };
 
-  const handleWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setWidth(Number(event.target.value));
-  };
-
-  const handleHeightChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setHeight(Number(event.target.value));
-  };
-
   const handleOpacityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOpacity(Number(event.target.value));
   };
 
-  const handleRotationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRotation(Number(event.target.value));
-  };
-
-  const handleDragStop = (event: any, data: any) => {
+  const handleDragStop = (_: any, data: any) => {
     setPosition({ x: data.x, y: data.y });
   };
 
@@ -81,30 +65,6 @@ const ShirtDesign = () => {
         </button>
 
         <label>
-          Width:
-          <input
-            type="range"
-            min="50"
-            max="200"
-            step="1"
-            value={width}
-            onChange={handleWidthChange}
-          />
-          {width}px
-        </label>
-        <label>
-          Height:
-          <input
-            type="range"
-            min="50"
-            max="200"
-            step="1"
-            value={height}
-            onChange={handleHeightChange}
-          />
-          {height}px
-        </label>
-        <label>
           Opacity:
           <input
             type="range"
@@ -116,18 +76,7 @@ const ShirtDesign = () => {
           />
           {opacity}px
         </label>
-        <label>
-          Rotation:
-          <input
-            type="range"
-            min="0"
-            max="360"
-            step="1"
-            value={rotation}
-            onChange={handleRotationChange}
-          />
-          {rotation}°
-        </label>
+
 
         <button
           onClick={handleSaveImage}
@@ -161,7 +110,6 @@ const ShirtDesign = () => {
                 alt="User Image"
                 className="w-full h-full object-cover"
                 style={{
-                  transform: `rotate(${rotation}deg)`,
                   opacity: opacity,
                 }}
               />
